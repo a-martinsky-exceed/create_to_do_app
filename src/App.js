@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
+import { SelectAllButton } from './components/SelectAllButton'
+import { CreateToDo } from './components/CreateToDo'
+import { ToDoList } from './components/ToDoList'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    visible: 'hidden',
+    active: true,
+    list: []
+  }
+
+  addItem = data => {
+    const  nextItem  = [data, ...this.state.list];
+    this.setState({ list: nextItem });
+  };
+
+  render() {
+    const {visible, active, list} = this.state
+    return(
+      <div className = "container">
+        <h1>todos</h1>
+        <div id = "new">
+          <SelectAllButton id = "SelectAll" visible = {visible} active = {active.toString()} />
+          <CreateToDo addToDo = {this.addItem} />
+          <ToDoList list = {this.state.list}/>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default App;
