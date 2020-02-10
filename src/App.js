@@ -1,31 +1,33 @@
 import React from 'react';
-import { SelectAllButton } from './components/SelectAllButton'
 import { CreateToDo } from './components/CreateToDo'
 import { ToDoList } from './components/ToDoList'
 import './App.css';
 
 class App extends React.Component {
   state = {
-    visible: 'hidden',
-    active: true,
-    list: []
+    list: [],
+    selectAll: false,
   }
 
   addItem = data => {
-    const  nextItem  = [data, ...this.state.list];
+    const nextItem  = [data, ...this.state.list];
     this.setState({ list: nextItem });
   };
 
+  checkedAll = (bool) => {
+    this.setState({selectAll: bool})
+  }
+
   render() {
-    const {visible, active, list} = this.state
+    const {list, selectAll} = this.state
+    const showAll = list.length === 0 ? 'non-visible' : 'visible'
     return(
       <div className = "container">
         <h1>todos</h1>
-        <div id = "new">
-          <SelectAllButton id = "SelectAll" visible = {visible} active = {active.toString()} />
-          <CreateToDo addToDo = {this.addItem} />
-          <ToDoList list = {this.state.list}/>
+        <div className="item">
+          <CreateToDo visible={showAll} addToDo={this.addItem} checkedAll={this.checkedAll} list={list}/>
         </div>
+        <ToDoList list={this.state.list} selectAll={selectAll}/>
       </div>
     )
   }

@@ -2,30 +2,39 @@ import React from 'react';
 
 class CreateToDo extends React.Component {
     state = {
-      id: null,
-      text: ''
-    }
+      text: '',
+      active: ''
+}
 
   changeValue = (e) => {
     this.setState({text: e.currentTarget.value})
   }
 
   createItem = (e) => {
-    const { id, text } = this.state
+    const { text } = this.state
     if(e.key === 'Enter') {
       this.props.addToDo({
-        id: Date.now(),
-        text: text
+        id: +new Date(),
+        text: text,
+        status: false
       })
     }
-    this.setState({visible: null, active: false})
+    this.setState({active: false})
+  }
+
+  handleChecked = (e) => {
+    const bool = e.currentTarget.checked
+    this.props.checkedAll(bool)
   }
 
   render() {
     const {text} = this.state
+    const {visible, not_active} = this.props
+    const klassName = visible + ' checkbox'
     return(
       <React.Fragment>
-        <input id = "name" onKeyPress = {this.createItem} onChange = {this.changeValue} value = {text} type = "text" placeholder = "What needs to be done?"/>
+        <div className="checkboxWrapper"><input className={klassName} onChange={this.handleChecked} type="checkbox" disabled={not_active} /></div>
+        <input className="name" onKeyPress={this.createItem} onChange={this.changeValue} value={text} type="text" placeholder="What needs to be done?"/>
       </React.Fragment>
     )
   }

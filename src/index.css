@@ -14,23 +14,46 @@ h1 {
   text-align: center;
 }
 
-#new {
-  border: 1px solid black;
+.item {
   height: 3em;
+  border: .1px solid #AEADAE;
   width: 500px;
   display: flex;
   align-items: stretch;
 }
 
-#name {
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  width: 2em;
+}
+
+.checkbox {
+  margin: auto;
+}
+
+.name {
   text-align: center;
   width: 100%;
 }
 
-#selectAll {
-  width: 2em;
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+#hideItem {
+  margin-right: 1em;
 }
 
 .hidden {
+  display: none !important;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.non-visible {
   opacity: 0;
 }

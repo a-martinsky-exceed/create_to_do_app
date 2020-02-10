@@ -1,27 +1,27 @@
 import React from 'react';
 import { Item } from './Item'
+import { Buttons } from './Buttons'
 
 class ToDoList extends React.Component {
-  renderList = () => {
-    const list = this.props
-    let items = null
-
+  renderList = (list, selectAll) => {
+    let items
     if (list.length) {
       items = list.map(function(item) {
-        return (
-          <Item key = {item.id} text = {item.text} />
-        )
+        return <Item key={item.id} id={item.id} text={item.text} checked={selectAll} />
       })
     }
     else {
-      return null;
+      items =  null;
     }
+    return items
   }
 
   render() {
+    const {list, selectAll} = this.props
     return (
       <React.Fragment>
-        {this.renderList()}
+        {this.renderList(list, selectAll)}
+        {list.length ? <Buttons items={list} /> : null}
       </React.Fragment>
     )
   }
