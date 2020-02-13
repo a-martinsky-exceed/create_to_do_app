@@ -1,43 +1,15 @@
 import React from 'react';
-import { Item } from './Item'
 
 class Buttons extends React.Component {
-
-  showAll = (items) => {
-
-  }
-
-  clearCompleted = (items) => {
-    items.map(function(item) {
-      if(item.checked === true) {
-        this.setState({hidden: 'hidden'})
-      }
-    })
-  }
-
   render() {
-    const {items} = this.props
-    const left = items.map(function(item){
-      let i = 0
-      // if(item.checkedThis === false) {
-        ++i
-      // }
-      return i
-    })
-    console.log(left)
+    const {left, setMode} = this.props
     return(
       <div className="footer">
-        <div>
-          {left} items left
-        </div>
-        <div onClick={this.showAll(items)}>
-          All
-        </div>
-        <div>
-          <button onClick={this.showAll(items)} />Active
-        </div>
-        Completed
-        <div onClick={this.clearCompleted(items)}>Clear Completed</div>
+        <button disabled>{left} left</button>
+        <button name="showAll" onClick={setMode}>All</button>
+        <button name="showActive" onClick={setMode}>Active</button>
+        <button name="showCompleted" onClick={setMode}>Completed</button>
+        <button name="clearCompleted" onClick={setMode}>Clear Completed</button>
       </div>
     )
   }
