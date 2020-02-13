@@ -20,7 +20,19 @@ class ToDoList extends React.Component {
     this.setState({idsToDelete: ids})
   }
 
-  renderList = (list, selectAll, addId, setMode, onCheck) => {
+  saveNewText = (id, newText) => {
+    let {list, updateArray} = this.props
+    list.map(elem => {
+      if (elem.id === id){
+        return {...elem.text = newText}
+      } else{
+        return {...elem}
+      }
+    })
+    return updateArray(list)
+  }
+
+  renderList = (list, selectAll, addId, setMode, onCheck, saveNewText) => {
     let items
     if (list.length) {
       items = list.map(function(item) {
@@ -31,7 +43,8 @@ class ToDoList extends React.Component {
                 addId={addId}
                 setMode={setMode}
                 onCheck={onCheck}
-                textDecoration={item.textDecoration}/>
+                textDecoration={item.textDecoration}
+                saveNewText={saveNewText}/>
       })
     }
     else {
@@ -41,11 +54,11 @@ class ToDoList extends React.Component {
   }
 
   render() {
-    const {list, buttons, mode, selectAll, setMode, onCheck } = this.props
+    const {list, buttons, mode, selectAll, setMode, onCheck} = this.props
     const data = this.filteredList(list, mode, buttons)
     return (
       <React.Fragment>
-        {this.renderList(data, selectAll, this.addId, setMode, onCheck )}
+        {this.renderList(data, selectAll, this.addId, setMode, onCheck, this.saveNewText)}
       </React.Fragment>
     )
   }

@@ -28,6 +28,11 @@ class App extends React.Component {
     return list
   }
 
+  // using when item was renamed
+  updateArray = (newList) => {
+    this.setState({list: newList})
+  }
+
   checkedAll = (bool) => {
     this.setState({selectAll: bool})
     const {list, selectAll} = this.state
@@ -106,6 +111,7 @@ class App extends React.Component {
 
   render() {
     const {list, selectAll, mode, left, disableSelectAll} = this.state
+    const klassNameBold = list.every(item => item.isChecked) ? 'bold' : ''
     return(
       <div className = "container">
         <h1>todos</h1>
@@ -114,7 +120,8 @@ class App extends React.Component {
                       checkedAll={this.checkedAll}
                       list={list}
                       countLeft={this.countLeft}
-                      disableSelectAll={disableSelectAll} />
+                      disableSelectAll={disableSelectAll}
+                      klassNameBold={klassNameBold} />
         </div>
         <ToDoList list={list}
                   buttons={this.buttons}
@@ -122,7 +129,8 @@ class App extends React.Component {
                   setMode={this.setFilterMode}
                   deleteFromList={this.deleteFromList}
                   selectAll={selectAll}
-                  onCheck={this.onCheck}/>
+                  onCheck={this.onCheck}
+                  updateArray={this.updateArray}/>
         {list.length ? <Buttons left={left} setMode={this.setFilterMode} /> : null}
       </div>
     )

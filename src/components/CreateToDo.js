@@ -31,8 +31,8 @@ class CreateToDo extends React.Component {
 
   render() {
     const {text} = this.state
-    const {list, disableSelectAll} = this.props
-    const klassName = list.length ? 'visible ' : 'non-visible '
+    const {list, disableSelectAll, klassNameBold} = this.props
+    const klassName = list.length ? 'visible ' +klassNameBold: 'non-visible '+klassNameBold
     return(
       <React.Fragment>
         <div className="checkboxWrapper">

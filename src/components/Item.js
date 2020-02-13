@@ -21,6 +21,7 @@ class Item extends React.Component {
 
   endRename = (e) => {
     this.setState({disableEdit: true})
+    this.props.saveNewText(this.props.id, e.currentTarget.value)
   }
 
   // show delete button
